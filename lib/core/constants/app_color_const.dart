@@ -7,4 +7,6 @@ class AppColors{
 
   static Color borderColor=Color(0xffF0F1FA);
   static Color hinttextColor=Color(0xff818181);
+  static Color blacktextColor=Colors.black;
+  static Color blueColor=Colors.blue;
 }

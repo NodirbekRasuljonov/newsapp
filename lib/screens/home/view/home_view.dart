@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
             elevation: 0.0,
             title: Container(
                 height: context.h * 0.05,
-                width: context.h * 0.48,
+                width: context.h * 0.45,
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.borderColor),
                   borderRadius: BorderRadius.circular(RadiusConst.medium),
@@ -52,34 +52,81 @@ class HomeView extends StatelessWidget {
                   top: context.h * 0.016,
                 ),
                 child: InkWell(
-                  onTap: (){
+                  onTap: () {
                     debugPrint("salom");
                   },
                   child: Container(
-                  height: context.h * 0.05,
-                  width: context.h * 0.05,
-                  
-                  decoration: BoxDecoration(
-                    color: AppColors.kPrimaryColor,
-                    borderRadius: BorderRadius.circular(
-                      RadiusConst.medium,
+                    height: context.h * 0.05,
+                    width: context.h * 0.05,
+                    decoration: BoxDecoration(
+                      color: AppColors.kPrimaryColor,
+                      borderRadius: BorderRadius.circular(
+                        RadiusConst.medium,
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.notifications_none_outlined,
+                      color: Colors.white,
+                      size: 20.0,
                     ),
                   ),
-                  child:const Icon(
-                    Icons.notifications_none_outlined,
-                    color: Colors.white,
-                    size: 20.0,
-                  ),
                 ),
-                )
-
               ),
             ],
             backgroundColor: AppColors.transparent,
           ),
+          body: body(context),
         );
       },
       listener: (context, state) {},
     );
+  }
+
+  SizedBox body(BuildContext context) {
+    return SizedBox(
+          height: context.h,
+          width: context.h,
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: context.h * 0.015),
+                height: context.h * 0.05,
+                width: context.h * 0.63,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Latest News',
+                      style: TextStyle(
+                        fontSize: AppFontSizeConst.medium,
+                        color: AppColors.blacktextColor,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        debugPrint("see all");
+                      },
+                      child: SizedBox(
+                        width: context.h * 0.1,
+                        height: context.h * 0.16,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('See All',style: TextStyle(color: AppColors.blueColor),),
+                            Icon(
+                              Icons.arrow_right_alt,
+                              color: AppColors.blueColor,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
   }
 }
