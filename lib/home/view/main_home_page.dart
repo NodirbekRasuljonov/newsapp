@@ -25,12 +25,15 @@ class MainHomePage extends StatelessWidget {
                   );
                 } else {
                   return ListView.builder(
-                      itemCount: snapshot.data!.articles.length,
-                      itemBuilder: (context, index) {
-                        return Text(
+                    itemCount: snapshot.data!.articles.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
                           snapshot.data.articles![index].author.toString(),
-                        );
-                      });
+                        ),
+                      );
+                    },
+                  );
                 }
               }),
         );

@@ -8,6 +8,9 @@ class HomeCubit extends Cubit<HomeState>{
   HomeCubit():super(HomeInitialState());
 
 
+
+  
+
   Future<NewsModel> getData()async{
     Response res=await Dio().get(ApiUrls.tesla);
     return NewsModel.fromJson(res.data);
