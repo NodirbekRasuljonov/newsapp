@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/view/main_home_page.dart';
+import 'package:newsapp/home/view/main_home_page.dart';
 
 class AppRoutes {
   static Route? onGenerateRoute(RouteSettings s) {
