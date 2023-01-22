@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/core/constants/color_const.dart';
@@ -5,6 +6,7 @@ import 'package:newsapp/core/constants/text_const.dart';
 import 'package:newsapp/home/cubit/home_cubit.dart';
 import 'package:newsapp/home/state/home_state.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newsapp/model/newsmodel.dart';
 
 class MainHomePage extends StatelessWidget {
   const MainHomePage({super.key});
@@ -13,6 +15,13 @@ class MainHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (context, state) {
+        List categoriesGetData = [
+          context.read<HomeCubit>().getAppleData(),
+          context.read<HomeCubit>().getTeslaData(),
+          context.read<HomeCubit>().getBusinessData(),
+          context.read<HomeCubit>().getTechData(),
+          context.read<HomeCubit>().getJournalData(),
+        ];
         return Scaffold(
           appBar: AppBar(
             backgroundColor: AppColorConst.ktransparenColor,
@@ -20,22 +29,63 @@ class MainHomePage extends StatelessWidget {
             centerTitle: true,
             title: Text(
               AppTextConst.newsapp,
-              style:
-                  TextStyle(color: AppColorConst.kPrimaryColor, fontSize: 18.sp),
+              style: TextStyle(
+                  color: AppColorConst.kPrimaryColor, fontSize: 18.sp),
             ),
           ),
-          body: Container(
+          body: SizedBox(
             height: 600.h,
             width: 400.w,
-            color: Colors.blue,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+              padding: EdgeInsets.symmetric(horizontal: 15.w,),
               child: Column(
                 children: [
                   categories(),
+                  SizedBox(height: 10.h,),
                   Expanded(
-                    child: Container(
-                      color: Colors.amber,
+                    child: FutureBuilder<NewsModel>(
+                      future: categoriesGetData[
+                          context.watch<HomeCubit>().currentIndex],
+                      builder: (context, AsyncSnapshot<NewsModel> snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return const Center(
+                            child: Text('Please check your Network'),
+                          );
+                        } else {
+                          NewsModel data = snapshot.data!;
+                          return ListView.builder(
+                            itemCount: data.articles!.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                height: 200.h,
+                                width: 345.w,
+                                margin: EdgeInsets.only(bottom: 10.h),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: data.articles![index].urlToImage
+                                                .toString() ==
+                                            "null"
+                                        ? const CachedNetworkImageProvider(
+                                            "https://wallpaperaccess.com/full/2125040.jpg")
+                                        : CachedNetworkImageProvider(
+                                            data.articles![index].urlToImage
+                                                .toString(),
+                                          ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
+                                alignment: Alignment.center,
+                                
+                              );
+                            },
+                          );
+                        }
+                      },
                     ),
                   )
                 ],
@@ -91,32 +141,3 @@ class MainHomePage extends StatelessWidget {
     );
   }
 }
-
-
-
-/**
- * FutureBuilder(
-              future: context.read<HomeCubit>().getData(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (!snapshot.hasData) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (snapshot.hasError) {
-                  return const Center(
-                    child: Text('Please check your Network'),
-                  );
-                } else {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.articles.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                          snapshot.data.articles![index].author.toString(),
-                        ),
-                      );
-                    },
-                  );
-                }
-              }),
- */
