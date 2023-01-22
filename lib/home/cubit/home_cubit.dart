@@ -12,7 +12,9 @@ class HomeCubit extends Cubit<HomeState>{
   
 
   Future<NewsModel> getData()async{
+    print("function started");
     Response res=await Dio().get(ApiUrls.tesla);
+    print("function tugadi");
     return NewsModel.fromJson(res.data);
   }
 }

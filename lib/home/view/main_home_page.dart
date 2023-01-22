@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/core/constants/color_const.dart';
 import 'package:newsapp/home/cubit/home_cubit.dart';
 import 'package:newsapp/home/state/home_state.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainHomePage extends StatelessWidget {
   const MainHomePage({super.key});
@@ -11,7 +13,17 @@ class MainHomePage extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(title: Text("NewsApp api added")),
+          appBar: AppBar(
+            backgroundColor: AppColorConst.ktransparenColor,
+            elevation: 0.0,
+            centerTitle: true,
+            title: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              height: 32.h,
+              width: 345.w,
+              color: Colors.amber,
+            ),
+          ),
           body: FutureBuilder(
               future: context.read<HomeCubit>().getData(),
               builder: (context, AsyncSnapshot snapshot) {

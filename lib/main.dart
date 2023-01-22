@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newsapp/home/cubit/home_cubit.dart';
 import 'package:newsapp/routes/app_routes.dart';
 
@@ -20,12 +20,19 @@ class NewsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'NewsApp',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      onGenerateRoute: AppRoutes.onGenerateRoute,
-      initialRoute: "/main",
+    return ScreenUtilInit(
+      designSize:const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'NewsApp',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.light(),
+          onGenerateRoute: AppRoutes.onGenerateRoute,
+          initialRoute: "/main",
+        );
+      },
     );
   }
 }
