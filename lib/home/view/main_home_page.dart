@@ -37,11 +37,15 @@ class MainHomePage extends StatelessWidget {
             height: 600.h,
             width: 400.w,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w,),
+              padding: EdgeInsets.symmetric(
+                horizontal: 15.w,
+              ),
               child: Column(
                 children: [
                   categories(),
-                  SizedBox(height: 10.h,),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   Expanded(
                     child: FutureBuilder<NewsModel>(
                       future: categoriesGetData[
@@ -60,27 +64,60 @@ class MainHomePage extends StatelessWidget {
                           return ListView.builder(
                             itemCount: data.articles!.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                height: 200.h,
-                                width: 345.w,
-                                margin: EdgeInsets.only(bottom: 10.h),
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: data.articles![index].urlToImage
-                                                .toString() ==
-                                            "null"
-                                        ? const CachedNetworkImageProvider(
-                                            "https://wallpaperaccess.com/full/2125040.jpg")
-                                        : CachedNetworkImageProvider(
-                                            data.articles![index].urlToImage
-                                                .toString(),
-                                          ),
-                                    fit: BoxFit.cover,
+                              return GestureDetector(
+                                child: Container(
+                                  height: 200.h,
+                                  width: 345.w,
+                                  margin: EdgeInsets.only(bottom: 10.h),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: data.articles![index].urlToImage
+                                                  .toString() ==
+                                              "null"
+                                          ? const CachedNetworkImageProvider(
+                                              "https://wallpaperaccess.com/full/2125040.jpg")
+                                          : CachedNetworkImageProvider(
+                                              data.articles![index].urlToImage
+                                                  .toString(),
+                                            ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.r),
                                   ),
-                                  borderRadius: BorderRadius.circular(8.r),
+                                  alignment: Alignment.center,
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        top: 8.h,
+                                        left: 8.w,
+                                        right: 8.w,
+                                        child: Text(
+                                          data.articles![index].title
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: AppColorConst.kwhite1Color,
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 8.h,
+                                        left: 8.w,
+                                        child: Text(
+                                          data.articles![index].author
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: AppColorConst.kwhite1Color,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                alignment: Alignment.center,
-                                
+                                onTap: () {
+                                  Navigator.pushNamed(context, "/details",arguments: data.articles![index]);
+                                },
                               );
                             },
                           );
@@ -131,9 +168,10 @@ class MainHomePage extends StatelessWidget {
                 child: Text(
                   AppTextConst.categories[index],
                   style: TextStyle(
-                      color: context.watch<HomeCubit>().currentIndex == index
-                          ? AppColorConst.kwhiteColor
-                          : AppColorConst.ktextColor),
+                    color: context.watch<HomeCubit>().currentIndex == index
+                        ? AppColorConst.kwhite1Color
+                        : AppColorConst.ktextColor,
+                  ),
                 ),
               ),
             );
