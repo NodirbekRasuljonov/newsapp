@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newsapp/core/constants/color_const.dart';
 import 'package:newsapp/model/newsmodel.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DetailsPage extends StatelessWidget {
   Articles data;
@@ -12,6 +14,7 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String author = data.author.toString();
     return Scaffold(
       body: Container(
         height: 700.h,
@@ -41,6 +44,45 @@ class DetailsPage extends StatelessWidget {
                       topRight: Radius.circular(50.r),
                     ),
                     color: Colors.white),
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    Text(
+                      data.description.toString(),
+                      style: TextStyle(
+                        color: AppColorConst.ktextColor,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "For more ...",
+                          style: TextStyle(color: AppColorConst.ktextColor,fontSize: 16.sp),
+                        ),
+                        SizedBox(width: 10.w,),
+                        GestureDetector(
+                          child: Text(
+                            "Link",
+                            style: TextStyle(color: Colors.blue,fontSize: 16.sp),
+                          ),
+                          onTap: () {
+                            launchUrlString(
+                              data.url.toString(),
+                            );
+                          },
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
             Positioned(
@@ -61,9 +103,44 @@ class DetailsPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Icon(
                     Icons.chevron_left_outlined,
-                    color: AppColorConst.kPrimaryColor,
+                    color: AppColorConst.ktextColor,
                     size: 30.sp,
                   ),
+                ),
+              ),
+            ),
+            Positioned(
+              left: 32.w,
+              right: 32.w,
+              top: 100.h,
+              child: Container(
+                height: 141.h,
+                width: 311.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.r),
+                    color: AppColorConst.kwhite1Color.withOpacity(0.8)),
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.title.toString(),
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          color: AppColorConst.ktextColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text(
+                      "Published by $author",
+                      style: TextStyle(
+                        color: AppColorConst.ktextColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             )
