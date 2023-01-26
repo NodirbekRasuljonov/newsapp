@@ -5,14 +5,14 @@ import 'package:newsapp/home/cubit/home_cubit.dart';
 import 'package:newsapp/routes/app_routes.dart';
 
 void main() {
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider(create: (context) {
-        return HomeCubit();
-      })
-    ],
-    child: NewsApp(),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => HomeCubit()),
+      ],
+      child: NewsApp(),
+    ),
+  );
 }
 
 class NewsApp extends StatelessWidget {
@@ -21,7 +21,7 @@ class NewsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize:const Size(360, 690),
+      designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {

@@ -5,6 +5,4 @@ class ApiUrls {
   static String tech="https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=7b78521612094b3cb95adb582a5a5719";
   static String journal="https://newsapi.org/v2/everything?domains=wsj.com&apiKey=7b78521612094b3cb95adb582a5a5719";
 
-
-
 }

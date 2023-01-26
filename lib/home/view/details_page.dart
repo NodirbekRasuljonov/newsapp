@@ -12,30 +12,64 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          expandedHeight: 149.h,
-          iconTheme: IconThemeData(color: AppColorConst.ktransparenColor),
-
-          flexibleSpace: Stack(
-            children: [
-              Positioned(
-                bottom: 1.h,
-                child: CachedNetworkImage(
-                  imageUrl: data.urlToImage.toString(),
-                  fit: BoxFit.fitWidth,
+    return Scaffold(
+      body: Container(
+        height: 700.h,
+        width: 360.w,
+        child: Stack(
+          children: [
+            Container(
+              height: 240.h,
+              width: 360.w,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: CachedNetworkImageProvider(
+                    data.urlToImage.toString(),
+                  ),
+                  fit: BoxFit.cover,
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            Positioned(
+              top: 200.h,
+              child: Container(
+                height: 500.h,
+                width: 360.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50.r),
+                      topRight: Radius.circular(50.r),
+                    ),
+                    color: Colors.white),
+              ),
+            ),
+            Positioned(
+              top: 52.h,
+              left: 15.w,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  height: 32.h,
+                  width: 32.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.r),
+                    // color: Color.fromRGBO(245, 245, 245, 0.5),
+                    color: AppColorConst.kwhite1Color.withOpacity(0.5),
+                  ),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.chevron_left_outlined,
+                    color: AppColorConst.kPrimaryColor,
+                    size: 30.sp,
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
-        SliverToBoxAdapter(
-          child: Container(
-            color: Colors.amber,
-          ),
-        )
-      ],
+      ),
     );
   }
 }
