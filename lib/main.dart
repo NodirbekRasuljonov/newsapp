@@ -30,7 +30,7 @@ class NewsApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light(),
           onGenerateRoute: AppRoutes.onGenerateRoute,
-          initialRoute: "/main",
+          initialRoute: "/splash",
         );
       },
     );

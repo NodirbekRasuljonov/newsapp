@@ -31,26 +31,11 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future<NewsModel> getAppleData() async {
-    Response res = await Dio().get(ApiUrls.apple);
+  Future<NewsModel> getData({required String url}) async {
+    Response res = await Dio().get(url);
     return NewsModel.fromJson(res.data);
   }
 
-   Future<NewsModel> getTeslaData() async {
-    Response res = await Dio().get(ApiUrls.tesla);
-    return NewsModel.fromJson(res.data);
-  }
-   Future<NewsModel> getBusinessData() async {
-    Response res = await Dio().get(ApiUrls.business);
-    return NewsModel.fromJson(res.data);
-  }
-   Future<NewsModel> getTechData() async {
-    Response res = await Dio().get(ApiUrls.tech);
-    return NewsModel.fromJson(res.data);
-  }
-   Future<NewsModel> getJournalData() async {
-    Response res = await Dio().get(ApiUrls.journal);
-    return NewsModel.fromJson(res.data);
-  }
+  
 
 }

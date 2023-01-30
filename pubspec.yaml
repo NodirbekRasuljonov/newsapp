@@ -42,6 +42,7 @@ dependencies:
   flutter_screenutil: ^5.6.0
   cached_network_image: ^3.2.3
   url_launcher: ^6.1.8
+  animated_text: ^1.0.2
 
 dev_dependencies:
   flutter_test:

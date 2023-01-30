@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/core/api_const/api_const.dart';
 import 'package:newsapp/core/constants/color_const.dart';
 import 'package:newsapp/core/constants/text_const.dart';
 import 'package:newsapp/home/cubit/home_cubit.dart';
@@ -15,13 +16,7 @@ class MainHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (context, state) {
-        List categoriesGetData = [
-          context.read<HomeCubit>().getAppleData(),
-          context.read<HomeCubit>().getTeslaData(),
-          context.read<HomeCubit>().getBusinessData(),
-          context.read<HomeCubit>().getTechData(),
-          context.read<HomeCubit>().getJournalData(),
-        ];
+   
         return Scaffold(
           appBar: AppBar(
             backgroundColor: AppColorConst.ktransparenColor,
@@ -48,8 +43,7 @@ class MainHomePage extends StatelessWidget {
                   ),
                   Expanded(
                     child: FutureBuilder<NewsModel>(
-                      future: categoriesGetData[
-                          context.watch<HomeCubit>().currentIndex],
+                      future: context.read<HomeCubit>().getData(url: ApiUrls[context.watch<HomeCubit>().currentIndex]),
                       builder: (context, AsyncSnapshot<NewsModel> snapshot) {
                         if (!snapshot.hasData) {
                           return const Center(
